@@ -11,7 +11,7 @@ class GetCustomerByEmailQuery
     {
     }
 
-    public function getData(): array
+    public function getData(): Customer
     {
         return Customer::query()->where('email', $this->email)->first();
     }

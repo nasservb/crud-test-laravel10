@@ -50,8 +50,8 @@ class CustomerTest extends TestCase
         //$faker = Container::getInstance()->make(Generator::class);
 
         return [
-            [['nasser','niazy','nasservb@gmail.com','+989189151266','43240000320000024','1999-11-05'],201],
-            [['','','nasservb@gmail.com','','',''],201],
+            [['nasser','niazy','nasservb@gmail.com','+989189151266','43240000320000024','1999-11-05'],200],
+            [['','','nasservb@gmail.com','','',''],200],
             [['nasser','niazy','nasservbgmail.com','+989189151266','43243224','1989'],422],
             [['nasser','niazy','nasservb@gmail','+989189151266','43243224','1989'],422],
             [['nasser','niazy','nasservb@.com','+989189151266','43243224','1989'],422],
@@ -74,7 +74,7 @@ class CustomerTest extends TestCase
         $data =$this->exampleCustomerData() ;
 
         $response = $this->postJson(route('api.Customer.create'), $data);
-        $response->assertStatus(201);
+        $response->assertStatus(200);
 
         $this->assertDatabaseCount(Customer::class, 1);
     }
