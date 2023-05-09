@@ -15,7 +15,8 @@ This project implements a simple PHP-backed application for Laravel CRUD test.
 - [Setup environment](#setup-environment)
 - [Build backend](#build-backend)
 - [Build frontend](#build-frontend)
-- [Run Tests](#tests)
+- [Run Unit Tests](#unit-tests)
+- [Run BDD Tests](#bdd-tests)
 - [Run Rabbitmq consumer](#rabbitmq-consumer)
 
 ### Overview
@@ -60,12 +61,23 @@ npm run prod
 
 now you can open the "http://127.0.0.1:4000/" url in your browser and test app
 
-### Tests
-run tests: 
+### Unit Tests
+run unit tests: 
 
 ```sh
 php vendor/bin/phpunit  --testdox  tests/ 
 ```
+
+### BDD Tests
+run BDD (Behavior-Driven Development) tests: 
+
+```sh
+
+java -jar ./selenium-server-standalone-3.141.59.jar
+
+
+```
+
 
 ### Rabbitmq consumer
 
@@ -75,4 +87,7 @@ docker-cmpose exec app sh
 php src/Consumers/Mail.php
  
 ```
+
+
+
 
