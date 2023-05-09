@@ -4,6 +4,7 @@ namespace App\Domains\Customer\Http\Controllers;
 
 use App\Domains\Customer\Http\Resources\CustomerListResource;
 use App\Domains\Customer\Models\Customer;
+use App\Domains\Customer\Services\CustomerService;
 use App\Domains\Customer\Http\Requests\CustomerRequest;
 use App\Domains\Customer\Http\Resources\CustomerResource;
 use App\Http\Controllers\Controller;
@@ -18,6 +19,13 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
  */
 class CustomerController extends Controller
 {
+    private $customerService = null;
+
+    public function __construct(CustomerService $customerService)
+    {
+        $this->customerService = $customerService;
+    }
+
     /**
      * @OA\Get(
      * path="/v1/customer",
@@ -96,7 +104,7 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        $item = Customer::create($request->all());
+        $item =$this->customerService->createCustomer($request);
         return new CustomerResource($item);
     }
 
@@ -181,13 +189,7 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-        $customer->first_name = $request->first_name;
-        $customer->last_name = $request->last_name;
-        $customer->email = $request->email;
-        $customer->phone_number = $request->phone_number;
-        $customer->bank_account_number = $request->bank_account_number;
-        $customer->date_of_birth = $request->date_of_birth;
-        $customer->update();
+        $this->customerService->updateCustomer($request, $customer);
 
         return new CustomerResource($customer);
     }
@@ -223,7 +225,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $customer->delete();
+        $this->customerService->deleteCustomer($customer);
         return response()->json(['OK']);
     }
 }
