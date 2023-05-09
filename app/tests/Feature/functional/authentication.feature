@@ -1,9 +1,13 @@
 # features/functional/welcome.feature
-Feature: Welcoming developer
-    As a Laravel developer
-    In order to proberly begin a new project
-    I need to be greeted upon arrival
-    Scenario: Greeting developer on homepage
+Feature: user authentication
+    As a user
+    I need to be correctly logged in to the project
+    Scenario: go on landing page
+        Given I am not logged in
+        When I visit "127.0.0.1"
+        Then I should see "Welcome to my site."
+
+    Scenario: go on dashboard
         Given I am logged in
-        When I visit "/"
-        Then I should see "You have arrived."
+        When I visit "http://127.0.0.1/home/"
+        Then I should see "Customer Dashboard"

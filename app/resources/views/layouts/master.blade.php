@@ -65,6 +65,8 @@
                     </div>
                     @endif
                 </div>
+
+            <div class="dropdown my-4 col-4">Customer Dashboard</div>
         </div>
     </div>
 

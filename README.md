@@ -17,7 +17,6 @@ This project implements a simple PHP-backed application for Laravel CRUD test.
 - [Build frontend](#build-frontend)
 - [Run Unit Tests](#unit-tests)
 - [Run BDD Tests](#bdd-tests)
-- [Run Rabbitmq consumer](#rabbitmq-consumer)
 
 ### Overview
 <p align="center"><img src="doc/overview.jpg" width="60%"/></p>
@@ -65,6 +64,7 @@ now you can open the "http://127.0.0.1:4000/" url in your browser and test app
 run unit tests: 
 
 ```sh
+docker-compose exec app sh 
 php vendor/bin/phpunit  --testdox  tests/ 
 ```
 
@@ -74,19 +74,11 @@ run BDD (Behavior-Driven Development) tests:
 ```sh
 
 java -jar ./selenium-server-standalone-3.141.59.jar
-
-
+docker-compose exec app sh 
+vendor/bin/behat
 ```
 
 
-### Rabbitmq consumer
-
-run rabbitmq consumer for email : 
-```sh
-docker-cmpose exec app sh 
-php src/Consumers/Mail.php
- 
-```
 
 
 
