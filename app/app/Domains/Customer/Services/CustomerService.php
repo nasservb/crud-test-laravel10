@@ -11,6 +11,7 @@ use App\Domains\Customer\Events\CreateCustomerEvent;
 use App\Domains\Customer\Events\UpdateCustomerEvent;
 use App\Domains\Customer\Events\DeleteCustomerEvent;
 use App\Domains\Customer\Queries\GetCustomerByEmailQuery;
+use App\Domains\Customer\Queries\GetCustomers;
 use App\Domains\Customer\Models\Customer;
 
 class CustomerService
@@ -22,7 +23,7 @@ class CustomerService
         $this->commandBus = $commandBus;
     }
 
-    public function createCustomer(CustomerRequest $request):Customer
+    public function createCustomer(CustomerRequest $request): Customer
     {
         $createCustomerCommand =
           new CreateCustomerCommand(
@@ -38,6 +39,12 @@ class CustomerService
         event(new CreateCustomerEvent($createCustomerCommand));
 
         $query = new GetCustomerByEmailQuery($request->email);
+        return $query->getData();
+    }
+
+    public function getCustomers()
+    {
+        $query = new GetCustomers();
         return $query->getData();
     }
 

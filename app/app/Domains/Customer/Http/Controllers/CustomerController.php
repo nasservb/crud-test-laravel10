@@ -58,7 +58,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return CustomerListResource::collection(Customer::query()->paginate());
+        return CustomerListResource::collection($this->customerService->getCustomers());
     }
 
     /**
