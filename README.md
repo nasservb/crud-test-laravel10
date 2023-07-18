@@ -1,48 +1,85 @@
-# Laravel CRUD Test Assignment
+This project implements a simple PHP-backed application for Laravel CRUD test. 
 
-Please read each note very carefully!
-Feel free to add/change project structure to a clean architecture to your view.
+* The application architecture is MVC and implemented with PHP Laravel.
+* The front-end application used Vue.js to implement the customer panel with require.js to manage JavaScript library loading in the browser.
+* The database is MySQL, and the relationships between the tables are defined.
+* The event-driven architecture is implemented with the RabbitMQ driver.
+* You could see simple events and consumers in the code base.
+* Security is so simple and powered by JWT tokens that can be kept for 1 hour each.
+* The application used Docker Compose to run all components. 
+* The integration tests are implemented by using the PHPUnit library. 
+* The Behavior tests are implemented by using the Cucumber and Bhat library. 
 
-Create a simple CRUD application with Laravel that implements the below model:
+## Table of Contents
+- [Overview](#overview)
+- [Setup environment](#setup-environment)
+- [Build backend](#build-backend)
+- [Build frontend](#build-frontend)
+- [Run Unit Tests](#unit-tests)
+- [Run BDD Tests](#bdd-tests)
+
+### Overview
+<p align="center"><img src="doc/overview.jpg" width="60%"/></p>
+
+### Setup environment
+
+we could run environment with 
+	
+```sh
+docker-compose up
+``` 
+
+### Build backend
+build data base tables and default data : 
+
+```sh
+docker-compose exec app sh 
+composer self-update --2
+
+composer i
+cp .env.example .env
+
+php artisan key:generate
+
+php artisan migrate
+
+php artisan db:seed
+ 
 ```
-Customer {
-	Firstname
-	Lastname
-	DateOfBirth
-	PhoneNumber
-	Email
-	BankAccountNumber
-}
+
+
+### Build frontend
+build front end application  : 
+
+```sh
+docker-cmpose exec front sh 
+npm i
+npm run prod
+ 
 ```
-## Practices and patterns (Must):
 
-- [TDD](https://en.wikipedia.org/wiki/Test-driven_development)
-- [DDD](https://en.wikipedia.org/wiki/Domain-driven_design)
-- [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development)
-- [Clean architecture](https://github.com/jasontaylordev/CleanArchitecture)
-- [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation#Command_query_responsibility_separation) pattern ([Event sourcing](https://en.wikipedia.org/wiki/Domain-driven_design#Event_sourcing)).
-- Clean git commits that shows your work progress.
-- Use PHP 8.2.x only
+now you can open the "http://127.0.0.1:4000/" url in your browser and test app
 
-### Validations (Must)
+### Unit Tests
+run unit tests: 
 
-- During Create; validate the phone number to be a valid *mobile* number only (Please use [Google LibPhoneNumber](https://github.com/google/libphonenumber) to validate number at the backend).
+```sh
+docker-compose exec app sh 
+php vendor/bin/phpunit  --testdox  tests/ 
+```
 
-- A Valid email and a valid bank account number must be checked before submitting the form.
+### BDD Tests
+run BDD (Behavior-Driven Development) tests: 
 
-- Customers must be unique in database: By `Firstname`, `Lastname` and `DateOfBirth`.
+```sh
 
-- Email must be unique in the database.
+java -jar ./selenium-server-standalone-3.141.59.jar
+docker-compose exec app sh 
+vendor/bin/behat
+```
 
-### Storage (Must)
 
-- Store the phone number in a database with minimized space storage (choose `varchar`/`string`, or `bigInt unsigned` whichever store less space).
 
-### Delivery (Must)
-- Please clone this repository in a new github repository in private mode and share with ID: `mason-chase` in private mode on github.com, make sure you do not erase my commits and then create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (code review).
-- Docker-compose project that loads database service automatically with `docker-compose up`
 
-## Presentation (Must)
-- Web UI.
-- Swagger
+
 

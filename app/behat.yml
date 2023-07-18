@@ -1,0 +1,6 @@
+default:
+    autoload: [ tests/Feature/functional/bootstrap ]
+    suites:
+        functional:
+            paths: [ tests/Feature/functional ]
+            contexts: [ FeatureContext ]
